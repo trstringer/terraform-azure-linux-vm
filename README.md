@@ -43,3 +43,7 @@ terraform apply -var "name_prefix=linux" -var "hostname=linux$(echo $RANDOM)" -v
 ```
 
 > :bulb: As you can see here, there are three required variables (and only three): `name_prefix` (what to prefix your Azure resources with), `hostname` (this will be the public DNS name, recommended to randomize it to prevent likeliness of collisions), and `ssh_public_key` (your public key). To see optional variables and their defaults, take a look at `vars.tf`
+
+## Output
+
+After you run this Terraform module, there will be two outputs: `admin_username` and `vm_fqdn`. These two pieces are what you need to then immediately ssh into your new Linux machine.

@@ -9,12 +9,6 @@
 
 ## Setup and Configuration
 
-First you need to pull down this repo if you want to run it directly (versus sourcing it from another Terraform module)...
-
-```
-git clone https://github.com/tstringer/terraform-azure-linux-vm
-```
-
 Ensure that you have Terraform installed. If you don't, you can [reference the official Terraform documentation on installing](https://www.terraform.io/intro/getting-started/install.html)...
 
 ```
@@ -29,6 +23,34 @@ The Azure provider in Terraform requires the following environment variables def
 - `ARM_CLIENT_ID`
 
 ## Provisioning
+
+There are two ways to use this to provision...
+
+1. Clone to git repository and run the module directly
+1. Create a new Terraform module that sources this remote module
+
+### Source this remote module
+
+This is approach #2 from above. You can create a base module locally to source this module...
+
+```hcl
+module "azlinuxvm" {
+  source = "github.com/tstringer/terraform-azure-linux-vm"
+
+  name_prefix    = "myprefix"
+  hostname       = "myhostname"
+  ssh_public_key = "${file("/home/yourlocaluser/.ssh/id_rsa.pub")}"
+}
+```
+
+Then run `terraform get` to pull this module, and `terraform plan` to see what will happen, and lastly `terraform apply` to kick off the provisioning.
+
+### Run module directly
+
+Clone this repository...
+```
+$ git clone https://github.com/tstringer/terraform-azure-linux-vm.git
+```
 
 Navigate your terminal to this module's root directory. It's wise to first see what Terraform will do in your subscription...
 

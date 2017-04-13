@@ -55,7 +55,7 @@ $ git clone https://github.com/tstringer/terraform-azure-linux-vm.git
 Navigate your terminal to this module's root directory. It's wise to first see what Terraform will do in your subscription...
 
 ```
-terraform plan
+terraform plan -var "name_prefix=linux" -var "hostname=linux$(echo $RANDOM)" -var "ssh_public_key=$(cat ~/.ssh/id_rsa.pub)"
 ```
 
 If you are satisfied, then start the provisioning process...
@@ -64,7 +64,10 @@ If you are satisfied, then start the provisioning process...
 terraform apply -var "name_prefix=linux" -var "hostname=linux$(echo $RANDOM)" -var "ssh_public_key=$(cat ~/.ssh/id_rsa.pub)"
 ```
 
-> :bulb: As you can see here, there are three required variables (and only three): `name_prefix` (what to prefix your Azure resources with), `hostname` (this will be the public DNS name, recommended to randomize it to prevent likeliness of collisions), and `ssh_public_key` (your public key). To see optional variables and their defaults, take a look at `vars.tf`
+> :bulb: As you can see here, there are three required variables (and only three): 
+* `name_prefix` (what to prefix your Azure resources with)
+* `hostname` (this will be the public DNS name, recommended to randomize it to prevent likeliness of collisions)
+* `ssh_public_key` (your public key). To see optional variables and their defaults, take a look at `vars.tf`
 
 ## Output
 

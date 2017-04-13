@@ -17,10 +17,31 @@ resource "azurerm_subnet" "subnet" {
   address_prefix       = "${var.subnet_address_space}"
 }
 
-resource "azurerm_network_interface" "nic" {
-  name                = "${var.name_prefix}nic"
+resource "azurerm_network_security_group" "nsg" {
+  name                = "${var.name_prefix}nsg"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
+}
+
+resource "azurerm_network_security_rule" "rulessh" {
+  name                        = "${var.name_prefix}rulessh"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = "${azurerm_resource_group.rg.name}"
+  network_security_group_name = "${azurerm_network_security_group.nsg.name}"
+}
+
+resource "azurerm_network_interface" "nic" {
+  name                      = "${var.name_prefix}nic"
+  location                  = "${var.location}"
+  resource_group_name       = "${azurerm_resource_group.rg.name}"
+  network_security_group_id = "${azurerm_network_security_group.nsg.id}"
 
   ip_configuration {
     name                          = "${var.name_prefix}ipconfig"

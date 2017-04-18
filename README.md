@@ -22,6 +22,8 @@ The Azure provider in Terraform requires the following environment variables def
 - `ARM_CLIENT_SECRET`
 - `ARM_CLIENT_ID`
 
+Follow the [instructions here](https://www.terraform.io/docs/providers/azurerm/index.html#to-create-using-azure-cli-) on how to create application credentials required for the above variables.
+
 ## Provisioning
 
 There are two ways to use this to provision...

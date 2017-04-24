@@ -49,6 +49,8 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "dynamic"
     public_ip_address_id          = "${azurerm_public_ip.pip.id}"
   }
+
+  depends_on = ["azurerm_network_security_group.nsg"]
 }
 
 resource "azurerm_public_ip" "pip" {
@@ -108,6 +110,8 @@ resource "azurerm_virtual_machine" "vm" {
       key_data = "${var.ssh_public_key}"
     }]
   }
+
+  depends_on = ["azurerm_storage_account.stor"]
 }
 
 output "admin_username" {

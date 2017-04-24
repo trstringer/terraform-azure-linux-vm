@@ -1,7 +1,17 @@
+# required variables
+variable "hostname" {
+  description = "name of the machine to create"
+}
+
 variable "name_prefix" {
   description = "unique part of the name to give to resources"
 }
 
+variable "ssh_public_key" {
+  description = "public key for ssh access"
+}
+
+# optional variables
 variable "location" {
   description = "region where the resources should exist"
   default     = "eastus"
@@ -47,10 +57,6 @@ variable "image_version" {
   default     = "latest"
 }
 
-variable "hostname" {
-  description = "name of the machine to create"
-}
-
 variable "admin_username" {
   description = "administrator user name"
   default     = "vmadmin"
@@ -64,8 +70,4 @@ variable "admin_password" {
 variable "disable_password_authentication" {
   description = "toggle for password auth (recommended to keep disabled)"
   default     = true
-}
-
-variable "ssh_public_key" {
-  description = "public key for ssh access"
 }
